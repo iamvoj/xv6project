@@ -5,5 +5,5 @@
 int main(){
     int uptime_sec = uptime();
     printf("Uptime: %d clock ticks\n", uptime_sec);
-    exit(0);
+    exit(0);
 }
