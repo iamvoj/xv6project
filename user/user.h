@@ -25,6 +25,9 @@ char* sbrk(int);
 int sleep(int);
 int uptime(void);
 int getprocs(struct pstat*);
+//Adding declaration
+int freepmem(void);
+int memoryuser(void);
 
 // ulib.c
 int stat(const char*, struct stat*);
