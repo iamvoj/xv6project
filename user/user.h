@@ -25,6 +25,11 @@ char* sbrk(int);
 int sleep(int);
 int uptime(void);
 int getprocs(struct pstat*);
+//Adding declaration
+uint64 freepmem(void);
+int memoryuser(void);
+void *mmap(void*,uint64,int,int,int,int);
+int munmap(void*,uint64);
 
 // ulib.c
 int stat(const char*, struct stat*);

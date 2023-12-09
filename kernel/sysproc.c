@@ -7,6 +7,8 @@
 #include "spinlock.h"
 #include "proc.h"
 
+uint64 kfreepagecount(void);
+
 uint64
 sys_exit(void)
 {
@@ -38,18 +40,24 @@ sys_wait(void)
   return wait(p);
 }
 
+
 uint64
 sys_sbrk(void)
 {
-  int addr;
   int n;
-
   if(argint(0, &n) < 0)
     return -1;
-  addr = myproc()->sz;
-  if(growproc(n) < 0)
+  struct proc *curproc = myproc();
+  // Calculate new heap size
+  uint64 new_sz = curproc->sz + n;
+  // Ensure new_sz is within the process's address space limits
+  if (new_sz < curproc->sz || new_sz >= TRAPFRAME) {
     return -1;
-  return addr;
+  }
+  // Update the process's heap size without allocating physical memory
+  curproc->sz = new_sz;
+  // Return the old end of the heap (before growing)
+  return curproc->sz - n;
 }
 
 uint64
@@ -106,4 +114,16 @@ sys_getprocs(void)
   if (argaddr(0, &addr) < 0)
     return -1;
   return(procinfo(addr));
+}
+
+uint64
+sys_freepmem(void){
+  int count = kfreepagecount();
+  return count*PGSIZE;
+}
+
+uint64
+sys_memoryuser(void){
+  int count = kfreepagecount();
+  return count*PGSIZE;
 }
