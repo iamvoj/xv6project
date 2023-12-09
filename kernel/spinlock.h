@@ -1,3 +1,5 @@
+#define NSEM 100
+
 // Mutual exclusion lock.
 struct spinlock {
   uint locked;       // Is the lock held?
@@ -7,7 +9,7 @@ struct spinlock {
   struct cpu *cpu;   // The cpu holding the lock.
 };
 
-
+// Counting semaphore
 struct semaphore {
 struct spinlock lock; // semaphore lock
 int count; // semaphore value

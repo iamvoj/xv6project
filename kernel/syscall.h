@@ -23,3 +23,10 @@
 #define SYS_getprocs  22
 #define SYS_freepmem 23
 #define SYS_memoryuser 24
+#define SYS_mmap 25
+#define SYS_munmap 26
+#define SYS_private 27
+#define SYS_sem_init  28
+#define SYS_sem_destroy  29
+#define SYS_sem_wait  30
+#define SYS_sem_post  31
